@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="page-head">
+  <div class="orb o1" data-speed="0.5" aria-hidden="true"></div>
+  <div class="wrap layer">
+    <span class="eyebrow">Features</span>
+    <h1>Code base in.<br><span class="grad-text">Running board out.</span></h1>
+    <p class="lead">Everything between a repository and a board that runs, in one chat, from the command line, with proof at every step.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <article class="feature" id="setup">
+    <div>
+      <span class="eyebrow" data-reveal>Setup</span>
+      <h2 data-reveal>From a link to a <span class="grad-text">working setup.</span></h2>
+      <p class="lead" data-reveal>Paste a GitHub, GitLab or zip link, or a folder. The model reads the whole code base and works out the board, the chip and what it needs.</p>
+      <ul data-reveal>
+        <li>Finds the devices the code runs on, and matches them to what is on your USB ports</li>
+        <li>Choosing another branch reads the code base again: its use cases, devices and tools</li>
+        <li>For a board that is not public yet, your own documents come first</li>
+        <li>One setup bot, the only place you talk during the setup</li>
+      </ul>
+    </div>
+    <div class="visual" aria-hidden="true"><div class="inner"><div class="term">
+      <span class="p">›</span> https://github.com/you/firmware<br><span class="d">reading 2,184 files…</span><br><span class="g">✓</span> board: discovery kit · chip: Cortex-M55<br><span class="g">✓</span> build: GNU Make + GNU Arm GCC<br><span class="y">●</span> 1 board found on USB: probe + serial port<br><span class="g">✓</span> use cases: 3 · branch: main
+    </div></div></div>
+  </article>
+
+  <article class="feature" id="tools">
+    <div>
+      <span class="eyebrow" data-reveal>Tools</span>
+      <h2 data-reveal>Found where they are. <span class="grad-text">Fetched when they are not.</span></h2>
+      <p class="lead" data-reveal>Every compiler, programmer, debugger and SDK the code needs, each row saying where it is in one plain word.</p>
+      <ul data-reveal>
+        <li>Looks in the usual folders, on the PATH, then through the whole drive</li>
+        <li>Each copy on your laptop is checked against your code base's own version</li>
+        <li>Missing tools come from their official release, installed with one press</li>
+        <li>Nothing installs without your word</li>
+      </ul>
+    </div>
+    <div class="visual" aria-hidden="true"><div class="inner"><div class="term">
+      <span class="g">✓ Installed</span>  GNU Arm GCC 13.3<br><span class="g">✓ Installed</span>  GNU Make 4.4<br><span class="p">🔍 Looking for it</span>  board programmer…<br><span class="d">   the usual folders · the PATH · drive C:</span><br><span class="g">✓ Installed</span>  board programmer 2.18<br><span class="y">▶ Ready to install</span>  model compiler 2.1
+    </div></div></div>
+  </article>
+
+  <article class="feature" id="run">
+    <div>
+      <span class="eyebrow" data-reveal>Run on the board</span>
+      <h2 data-reveal>Build, flash, check. <span class="grad-text">One button.</span></h2>
+      <p class="lead" data-reveal>Say what you expect; the board is built, flashed, reset and read, and the output is checked against your words.</p>
+      <ul data-reveal>
+        <li>How the board resets is detected from its setup: nothing to choose</li>
+        <li>The output shows as live graphs, a table, or the log with problems marked</li>
+        <li>When the board stays dark while its IDE works, the build and flash are made to match the IDE's</li>
+        <li>A fix is offered only when the output was wrong</li>
+      </ul>
+    </div>
+    <div class="visual" aria-hidden="true"><div class="inner"><div class="states">
+      <span><i class="s-amb"></i>Building</span><span><i class="s-amb"></i>Flashing</span><span><i class="s-blue"></i>Debugging</span>
+      <span><i class="s-blue"></i>Monitoring</span><span><i class="s-ok"></i>Running</span><span><i class="s-ok"></i>Completed</span>
+      <span><i class="s-grey"></i>Idle</span><span><i class="s-org"></i>Stale</span><span><i class="s-red"></i>Crash</span>
+    </div></div></div>
+  </article>
+
+  <article class="feature" id="terminal">
+    <div>
+      <span class="eyebrow" data-reveal>Terminal</span>
+      <h2 data-reveal>A command line that <span class="grad-text">talks back.</span></h2>
+      <p class="lead" data-reveal>The whole chat becomes a terminal in your code base. Commands run; plain words go to the model.</p>
+      <ul data-reveal>
+        <li>A failed command: its cause, why, the component, the fix and whether it is safe</li>
+        <li>/build, /flash, /run, /debug, /setup and more; /help lists them</li>
+        <li>Secrets in the output are masked</li>
+      </ul>
+    </div>
+    <div class="visual" aria-hidden="true"><div class="inner"><div class="term">
+      <span class="p">›</span> make -j8<br><span class="r">✕ undefined reference to `sensor_init'</span><br><span class="d">Cause:</span> sensor.c is not in the build<br><span class="d">Fix:</span> add it to SRCS in the Makefile<br><span class="p">›</span> what does the board folder do?<br><span class="g">{{ site.site_name }}</span>  It holds the pin setup and the clock tree.
+    </div></div></div>
+  </article>
+
+  <article class="feature" id="changes">
+    <div>
+      <span class="eyebrow" data-reveal>Changes and Git</span>
+      <h2 data-reveal>Every change, <span class="grad-text">in plain sight.</span></h2>
+      <p class="lead" data-reveal>A source-control view you already know: file by file, inline or side by side, with a legend for every colour.</p>
+      <ul data-reveal>
+        <li>Push to the repository you cloned or to your own</li>
+        <li>A commit message written from the diff, yours to edit</li>
+        <li>Combine consecutive commits, only when it is safe</li>
+      </ul>
+    </div>
+    <div class="visual" aria-hidden="true"><div class="inner"><div class="mini-diff">
+      <div class="hunk">@@ -12,6 +12,9 @@</div><div>  int main(void) {</div><div class="del">-   led_on();</div><div class="add">+   led_blink(500);</div><div class="add">+   float t = sensor_read();</div><div class="add">+   printf("temp=%.1f\n", t);</div><div>    while (1) {</div>
+    </div></div></div>
+  </article>
+
+  <article class="feature" id="models">
+    <div>
+      <span class="eyebrow" data-reveal>AI models</span>
+      <h2 data-reveal>The model <span class="grad-text">you choose.</span></h2>
+      <p class="lead" data-reveal>Use a provider by its API or its command line, in the order you prefer. Adding a new one is set up by the model you already use, and checked before it is kept.</p>
+    </div>
+    <div class="visual" aria-hidden="true"><div class="inner"><div class="term">
+      <span class="d">providers, in your order</span><br><span class="g">1 ✓</span> provider A · API<br><span class="g">2 ✓</span> provider B · API<br><span class="g">3 ✓</span> provider C · command line<br><span class="p">+ Add</span> a new provider…
+    </div></div></div>
+  </article>
+</div>
+
+<section class="final pad">
+  <div class="wrap">
+    <h2 data-reveal>Ready for <span class="grad-text">your board?</span></h2>
+    <a class="btn btn-primary btn-lg" href="/download" data-magnetic data-track="cta" data-track-value="features_download" data-reveal>Download {{ site.site_name }}</a>
+  </div>
+</section>
+{% endblock %}

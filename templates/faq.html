@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+{% for q, a in faqs %}{"@type": "Question", "name": {{ q|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ a|tojson }}}}{% if not loop.last %},{% endif %}{% endfor %}
+]}
+</script>
+{% endblock %}
+{% set faqs = [
+  ("Which boards does it work with?", "Any board whose code base builds from the command line or from a vendor IDE that has command-line tools. Nothing is written for one vendor: the AI model reads your code base, finds the board and works out the tools, and the app checks every step on the board itself."),
+  ("Do I need the vendor's IDE?", "No. Everything runs from the command line. When a code base only comes as an IDE project, the IDE's own background commands are worked out and run without opening the IDE."),
+  ("Which AI model does it use?", "The one you choose. Providers can be used by their API or their command line, in the order you prefer; you can add new ones."),
+  ("Does my code leave my laptop?", "The app runs on your laptop. What is sent to an AI model depends on the provider you choose: only the parts needed for the task, with secrets masked in tool output."),
+  ("What if a tool is already installed?", "It is found: in its usual folders, on the PATH, or anywhere on your drives. Each copy is checked against the version your code base needs."),
+  ("What does it cost?", "The app is free. Your AI provider may charge for its use."),
+  ("What does this website store about me?", "See the privacy page. No third-party trackers, no advertising.")
+] %}
+{% block main %}
+<section class="page-head">
+  <div class="wrap layer">
+    <span class="eyebrow">FAQ</span>
+    <h1>Questions, <span class="grad-text">answered.</span></h1>
+  </div>
+</section>
+<section class="pad">
+  <div class="wrap prose">
+    {% for q, a in faqs %}
+    <div class="faq-item" data-reveal>
+      <button type="button" aria-expanded="false" aria-controls="faq-{{ loop.index }}">{{ q }}<span class="pm" aria-hidden="true"></span></button>
+      <div class="a" id="faq-{{ loop.index }}"><p>{{ a }}</p></div>
+    </div>
+    {% endfor %}
+    <p class="muted">Something else? <a href="/contact">Write to us</a>.</p>
+  </div>
+</section>
+{% endblock %}

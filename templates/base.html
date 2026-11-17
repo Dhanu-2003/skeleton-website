@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ canonical }}">
+  <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large{% endblock %}">
+  <meta name="theme-color" content="#05060a">
+  <meta name="color-scheme" content="dark">
+  {% if site.static %}
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'self'; form-action 'self'; manifest-src 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  {% if site.github_repo %}<meta name="gh-repo" content="{{ site.github_repo }}">{% endif %}
+  {% else %}
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  {% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.site_name }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta property="og:image" content="{{ site.site_url.rstrip('/') }}/static/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ site.site_url.rstrip('/') }}/static/img/og.png">
+  <link rel="icon" href="{{ asset('img/icon.svg') }}" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preload" href="{{ asset('css/site.css') }}" as="style">
+  <link rel="stylesheet" href="{{ asset('css/site.css') }}">
+  <script src="{{ asset('js/early.js') }}"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {"@type": "Organization", "name": {{ site.site_name|tojson }}, "url": {{ site.site_url|tojson }}, "logo": {{ (site.site_url.rstrip('/') ~ '/static/img/icon.svg')|tojson }}},
+      {"@type": "WebSite", "name": {{ site.site_name|tojson }}, "url": {{ site.site_url|tojson }}},
+      {"@type": "SoftwareApplication", "name": {{ site.site_name|tojson }}, "applicationCategory": "DeveloperApplication", "operatingSystem": "Windows 10, Windows 11",
+       "description": {{ site.description|tojson }}, "url": {{ site.site_url|tojson }},
+       "downloadUrl": {{ (site.site_url.rstrip('/') ~ '/download')|tojson }},
+       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}{% if rel %}, "softwareVersion": {{ rel.version|tojson }}, "fileSize": {{ (rel.size_mb ~ ' MB')|tojson }}{% endif %}}
+    ]
+  }
+  </script>
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip" href="#main">Skip to the content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="loader" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 64 64" fill="none"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset=".5" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      <rect x="14" y="14" width="36" height="36" rx="8" stroke="url(#lg)" stroke-width="3"/><path d="M24 4v10M32 4v10M40 4v10M24 50v10M32 50v10M40 50v10M4 24h10M4 32h10M4 40h10M50 24h10M50 32h10M50 40h10" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/></svg>
+    <div class="bar"><i></i></div>
+  </div>
+  <div class="cursor" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="site-head">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="{{ site.site_name }} home">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset=".5" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+          <rect x="14" y="14" width="36" height="36" rx="8" stroke="url(#lg2)" stroke-width="4"/><path d="M24 4v10M40 4v10M24 50v10M40 50v10M4 24h10M4 40h10M50 24h10M50 40h10" stroke="url(#lg2)" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="32" r="7" fill="url(#lg2)"/></svg>
+        <span>{{ site.site_name }}</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        {% for href, label in nav %}<a href="{{ href }}" data-track-nav="{{ label }}"{% if request.path == href %} aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
+      </nav>
+      <div class="head-cta">
+        {% if site.static %}
+        {% elif user %}
+          {% if user.role == 'admin' %}<a class="btn btn-ghost btn-sm hide-sm" href="/admin">Dashboard</a>{% endif %}
+          <a class="btn btn-ghost btn-sm hide-sm" href="/account">Account</a>
+        {% else %}
+          <a class="btn btn-ghost btn-sm hide-sm" href="/login">Sign in</a>
+        {% endif %}
+        <a class="btn btn-primary btn-sm" href="/download" data-magnetic data-track="cta" data-track-value="header_download">Download</a>
+        <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menu">
+    {% for href, label in nav %}<a href="{{ href }}">{{ label }}</a>{% endfor %}
+    {% if site.static %}<a href="/contact">Contact</a>{% elif user %}<a href="/account">Account</a>{% else %}<a href="/login">Sign in</a><a href="/register">Create an account</a>{% endif %}
+  </nav>
+
+  <main id="main">{% block main %}{% endblock %}</main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <div class="cols4">
+        <div>
+          <a class="brand" href="/"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="14" y="14" width="36" height="36" rx="8" stroke="#5eead4" stroke-width="4"/><circle cx="32" cy="32" r="7" fill="#60a5fa"/></svg><span>{{ site.site_name }}</span></a>
+          <p class="muted small">{{ site.tagline }}</p>
+        </div>
+        <div><h4>Product</h4><a href="/features">Features</a><a href="/how-it-works">How it works</a><a href="/download">Download</a><a href="/faq">FAQ</a></div>
+        <div><h4>{% if site.static %}Help{% else %}Account{% endif %}</h4>{% if site.static %}{% if site.github_repo %}<a href="https://github.com/{{ site.github_repo }}/releases">All releases</a>{% endif %}{% elif user %}<a href="/account">Your account</a>{% else %}<a href="/login">Sign in</a><a href="/register">Create an account</a>{% endif %}<a href="/contact">Contact</a></div>
+        <div><h4>Trust</h4><a href="/security">Security</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+      </div>
+      <div class="bottom"><span>© {{ year }} {{ site.site_name }}</span><span>{% if site.static %}No trackers. No cookies. No ads.{% else %}No third-party trackers. No ads. Statistics stay on this server.{% endif %}</span></div>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal-download" role="dialog" aria-modal="true" aria-labelledby="md-title" hidden>
+    <div class="backdrop" data-close></div>
+    <div class="panel">
+      <button class="x" type="button" data-close aria-label="Close">✕</button>
+      <div class="badge"><svg viewBox="0 0 40 40"><path d="M10 21l7 7 14-15"/></svg></div>
+      <h3 id="md-title">Your download is starting</h3>
+      <p>Open <b class="md-file mono"></b> when it finishes. Windows may say "unknown publisher": choose More info, then Run anyway.</p>
+      <div class="acts"><a class="btn btn-ghost" href="/how-it-works" data-close>What happens next</a><button class="btn btn-primary" type="button" data-close>Got it</button></div>
+    </div>
+  </div>
+  <div class="toasts" aria-live="polite"></div>
+
+  <script src="{{ asset('vendor/gsap.min.js') }}" defer></script>
+  <script src="{{ asset('vendor/ScrollTrigger.min.js') }}" defer></script>
+  <script src="{{ asset('vendor/lenis.min.js') }}" defer></script>
+  <script src="{{ asset('js/main.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

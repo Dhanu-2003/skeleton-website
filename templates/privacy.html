@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="page-head"><div class="wrap layer"><span class="eyebrow">Privacy</span><h1>What we keep. <span class="grad-text">What we don't.</span></h1></div></section>
+<section class="pad"><div class="wrap prose">
+  {% if site.static %}
+  <h2>This website</h2>
+  <p>This site has no accounts, sets no cookies and runs no trackers or analytics. It is a set of plain pages hosted on GitHub Pages; GitHub's own privacy statement covers the server logs GitHub keeps.</p>
+  <h2>Downloads</h2>
+  <p>The installer is a GitHub Release file. GitHub counts how many times it was downloaded (a number, nothing about you), and the page shows that number by asking GitHub's public API.</p>
+  <h2>Questions</h2>
+  <p><a href="/contact">Contact us.</a></p>
+  {% else %}
+  <h2>Traffic statistics</h2>
+  <p>We count page views, downloads and a few actions on the pages (how far a page was scrolled, which button was pressed) to know what helps. We do it ourselves, on this server. No third-party analytics, no advertising, and no cookies for it.</p>
+  <ul>
+    <li>No IP address is stored. A visitor is a hash of a random value that changes every day, the address and the browser, so we cannot follow you from one day to the next.</li>
+    <li>We keep the page, the site you came from (its name only), the kind of device and the browser family.</li>
+    <li>If your browser sends Do Not Track or Global Privacy Control, nothing is counted.</li>
+    <li>Statistics older than about a year are deleted.</li>
+  </ul>
+  <h2>Your account</h2>
+  <p>If you make an account, we keep your name, your email, a hash of your password (never the password itself), when you signed in, and which versions you downloaded while signed in. You can delete your account at any time from its page. Your statistics are then kept only without your name.</p>
+  <h2>Cookies</h2>
+  <p>Two, both needed for the site to work: the session cookie when you are signed in, and a security token that protects the forms. Neither is used for tracking.</p>
+  <h2>Messages</h2>
+  <p>What you send through the contact form is kept so we can answer it.</p>
+  <h2>Questions</h2>
+  <p><a href="/contact">Write to us.</a></p>
+  {% endif %}
+</div></section>
+{% endblock %}

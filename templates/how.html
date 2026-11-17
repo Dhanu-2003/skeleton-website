@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="page-head">
+  <div class="orb o2" data-speed="0.5" aria-hidden="true"></div>
+  <div class="wrap layer">
+    <span class="eyebrow">How it works</span>
+    <h1>Seven steps.<br><span class="grad-text">You do one.</span></h1>
+    <p class="lead">You paste a link. Everything after it is done for you, and each step is proven before the next begins.</p>
+  </div>
+</section>
+<section class="pad">
+  <div class="wrap">
+    <div class="timeline">
+      <svg class="line" preserveAspectRatio="none" viewBox="0 0 4 1000" aria-hidden="true">
+        <defs><linearGradient id="tl-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset=".5" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        <path d="M2 0 V1000"/>
+      </svg>
+      {% set steps = [
+        ("Read", "The model opens the code base and reads every file: the language, the build system, the board and chip it names, the versions it pins and the tools it needs. Every claim is checked against the files it cites."),
+        ("Find the board", "The devices the code runs on are listed and matched against what is on your USB ports, with the reason for each match. The board's variants, memory, probes and documents are collected."),
+        ("Bring the tools", "Each tool is looked for on your laptop (its usual folders, the PATH, then the whole drive) and checked against your code base's own version. Whatever is missing comes from its official release, with your OK."),
+        ("Write the scripts", "One command-line script per action, each with its preprocess, main step and postprocess: build, flash, debug and monitor. They are run and fixed until they work."),
+        ("Build and flash", "The build runs on every core; the complete image set is written so the board starts by itself; the board's own output is read back."),
+        ("Debug", "The debugger connects and says where the program is. When the board needs another mode for debugging, you are asked at the right moment."),
+        ("Talk", "The setup is saved as the board's skill. From now on you change the code in the chat, run it on the board and watch its output."),
+      ] %}
+      {% for name, text in steps %}
+      <div class="tl-step" data-reveal>
+        <div class="dot">{{ "%02d"|format(loop.index) }}</div>
+        <div><h3>{{ name }}</h3><p>{{ text }}</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<section class="final pad">
+  <div class="wrap">
+    <h2 data-reveal>See it on <span class="grad-text">your board.</span></h2>
+    <a class="btn btn-primary btn-lg" href="/download" data-magnetic data-track="cta" data-track-value="how_download" data-reveal>Download {{ site.site_name }}</a>
+  </div>
+</section>
+{% endblock %}

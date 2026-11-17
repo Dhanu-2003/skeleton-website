@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="hero" aria-labelledby="hero-title">
+  <canvas class="scene" data-scene="hero" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="eyebrow" data-hero>For embedded developers</span>
+    <h1 id="hero-title" data-split>
+      <span class="line"><span>Your hardware</span></span>
+      <span class="line"><span class="grad-text">engineer,</span></span>
+      <span class="line"><span>on your desk.</span></span>
+    </h1>
+    <p class="lead" data-hero>Paste any working code base and chat. {{ site.site_name }} finds the board, installs the tools, builds, flashes, debugs and reads the output, all from the command line, with the AI model you choose.</p>
+    <div class="hero-ctas" data-hero>
+      <a class="btn btn-primary btn-lg" href="/download" data-magnetic data-track="cta" data-track-value="hero_download">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        Download for Windows</a>
+      <a class="btn btn-ghost btn-lg" href="#story" data-magnetic data-track="cta" data-track-value="hero_how">See it work</a>
+    </div>
+    <div class="hero-meta" data-hero>
+      {% if rel %}<span>Version <b>{{ rel.version }}</b></span><span><b>{{ rel.size_mb }} MB</b> · Windows 10 / 11</span>{% endif %}
+      <span class="counter-live"><i></i><b data-downloads>{{ downloads }}</b>&nbsp;downloads</span>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#story" aria-label="Scroll to the story"></a>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    {% for _ in range(2) %}
+    <span class="on">Any board</span><span>Any vendor</span><span class="on">Any toolchain</span><span>Build</span><span class="on">Flash</span><span>Debug</span><span class="on">Monitor</span><span>Your AI model</span>
+    {% endfor %}
+  </div>
+</div>
+
+<section class="story" id="story" aria-label="From a code base to a running board">
+  <div class="stage">
+    <div class="steps">
+      <article class="step is-on" data-step="0"><span class="num">01 / 05</span><h3>Paste a code base.</h3><p>A GitHub link, a zip or a folder. The model reads every file, not just the README: the language, the build system, the board, the chip and the tools it needs.</p></article>
+      <article class="step" data-step="1"><span class="num">02 / 05</span><h3>It finds the board.</h3><p>The devices the code runs on, matched against what is plugged into your USB ports, with the reason for each match. Variants, memory, probes and documents load by themselves.</p></article>
+      <article class="step" data-step="2"><span class="num">03 / 05</span><h3>It brings the tools.</h3><p>Every compiler, flasher and SDK the code needs, checked against your code base's own versions. Already installed? It finds the copy, anywhere on your drives.</p></article>
+      <article class="step" data-step="3"><span class="num">04 / 05</span><h3>Build. Flash. Debug.</h3><p>Real command-line scripts, written and tested for your board, each step proven: the build passes, the image is written, the board starts, the debugger reads it.</p></article>
+      <article class="step" data-step="4"><span class="num">05 / 05</span><h3>Then you just talk.</h3><p>Change the code in the chat, run it on the board, watch the live output as graphs or tables. One place to talk, one button to run.</p></article>
+      <div class="rail" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+    <div class="visual">
+      <canvas class="scene" data-scene="story" aria-hidden="true"></canvas>
+      <div class="hud" aria-hidden="true">
+        <span class="chip-tag warm" data-hud="1"><i></i>board found · USB</span>
+        <span class="chip-tag" data-hud="2"><i></i>tools ready</span>
+        <span class="chip-tag" data-hud="3"><i></i>build ✓ · flash ✓</span>
+        <span class="chip-tag" data-hud="4"><i></i>board running</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="showcase pad" aria-labelledby="sc-title">
+  <div class="orb o1" data-speed="0.6" aria-hidden="true"></div>
+  <div class="wrap grid layer">
+    <div>
+      <span class="eyebrow" data-reveal>One chat</span>
+      <h2 id="sc-title" data-reveal>Say what you want. <span class="grad-text">Watch the board do it.</span></h2>
+      <p class="lead" data-reveal>Every answer is backed by proof: the build log, the flash, the board's own output and the debugger. Nothing counts as working until the board says so.</p>
+      <a class="link-arrow" href="/features" data-reveal>All the features <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="stagewin">
+      <div class="window tilt" data-tilt data-reveal>
+        <div class="bar"><i></i><i></i><i></i><span>Hardware chat</span></div>
+        <div class="body">
+          <div class="bubble me" data-chat>Make the LED blink twice a second and print the temperature.</div>
+          <div class="bubble ai" data-chat>Changed <code>main.c</code> and <code>sensor.c</code>. Building, flashing, then reading the board.</div>
+          <div class="status-row" data-chat><span class="pill ok">build ✓ 11.8 s</span><span class="pill warm">flash ✓</span><span class="pill blue">monitoring</span></div>
+          <div class="bubble ai" data-chat>The board prints <code>temp=24.6</code> every second and the LED blinks at 2 Hz. It matches what you asked for.</div>
+        </div>
+      </div>
+      <div class="float-card a" data-speed="1.25" aria-hidden="true"><span class="muted small">Live status</span><b class="grad-text">Running</b></div>
+      <div class="float-card b" data-speed="0.8" aria-hidden="true"><span class="muted small">temp</span><b>24.6 °C</b></div>
+      <div class="float-card c" data-speed="1.4" aria-hidden="true"><span class="muted small">Changes</span><b><span class="grad-text">+42</span> −7</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="hrail pad" id="features" aria-labelledby="hr-title">
+  <div class="wrap head">
+    <div><span class="eyebrow" data-reveal>Built for the bench</span><h2 id="hr-title" data-reveal>Everything around the board,<br><span class="grad-text">in one place.</span></h2></div>
+    <a class="btn btn-ghost" href="/features" data-magnetic data-reveal>Explore features</a>
+  </div>
+  <div class="track" data-hscroll>
+    <article class="fcard"><div class="glow c1"></div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17l6-5-6-5M12 19h8"/></svg></div>
+      <h3>A terminal with an AI at the prompt</h3><p>Type a command and it runs in your code base. Type a question in plain words and the model answers. A failed command comes with its cause and its fix.</p>
+      <div class="demo"><span class="p">›</span> what does this folder do?<br><span class="g">{{ site.site_name }}</span>&nbsp; It holds the board's firmware: src has the app, board has the pin setup.</div></article>
+    <article class="fcard"><div class="glow c2"></div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <h3>Live status you can read</h3><p>Building, flashing, debugging, monitoring, running, stale, crashed: each with its own colour, mark and word, updated as it happens.</p>
+      <div class="demo"><span class="y">⚡ Flashing</span> · write 64%<br><span class="g">✓ Flashed</span> · checking the board…</div></article>
+    <article class="fcard"><div class="glow c3"></div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 8v8M18 10c0 4-6 4-10 6"/></svg></div>
+      <h3>Changes, the way you know them</h3><p>Every change file by file, inline or side by side. Push to the repository you cloned or to your own, with a message written from the diff.</p>
+      <div class="demo"><span class="g">+ led_blink(500);</span><br><span class="y">~ printf("temp=%.1f\n", t);</span></div></article>
+    <article class="fcard"><div class="glow c4"></div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg></div>
+      <h3>Tools, found or fetched</h3><p>Each tool the code needs, checked against its own version, found anywhere on your drives, or fetched from its official release with one Install.</p>
+      <div class="demo"><span class="g">✓ Installed</span> GNU Arm GCC 13.3<br><span class="p">▶ Ready to install</span> board programmer</div></article>
+    <article class="fcard"><div class="glow c1"></div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/></svg></div>
+      <h3>Bring your own AI model</h3><p>Use the model you trust, by API or by its command line. Add a new provider and the model you already use sets it up, checked before it is kept.</p>
+      <div class="demo"><span class="p">providers</span> · API · CLI · your order</div></article>
+  </div>
+</section>
+
+<section class="numbers pad" aria-label="In numbers">
+  <div class="wrap">
+    <div class="grid">
+      <div class="cell"><div class="big grad-text" data-count="{{ downloads }}">{{ downloads }}</div><p>downloads so far, counted live</p></div>
+      <div class="cell"><div class="big" data-count="1">1</div><p>place to talk to the setup</p></div>
+      <div class="cell"><div class="big" data-count="9">9</div><p>live states, each with its colour, mark and word</p></div>
+      <div class="cell"><div class="big" data-count="0">0</div><p>vendor IDEs you have to open</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" aria-labelledby="tr-title">
+  <div class="orb o2" data-speed="0.5" aria-hidden="true"></div>
+  <div class="wrap layer">
+    <span class="eyebrow" data-reveal>Trust</span>
+    <h2 id="tr-title" data-reveal>Your code stays <span class="grad-text">yours.</span></h2>
+    <div class="pillars">
+      <div class="pillar" data-reveal><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><h3>On your laptop</h3><p>The app runs on your machine. Secrets in tool output are masked, and keys are never written into commits.</p></div>
+      <div class="pillar" data-reveal><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg><h3>Proof, not promises</h3><p>A step counts only with its evidence: the build output, the flash read-back, the board's own output, the debugger.</p></div>
+      <div class="pillar" data-reveal><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><h3>You approve</h3><p>Installs, flashing and pushes ask first. Nothing leaves your laptop without your word.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final pad" aria-labelledby="fi-title">
+  <div class="orb o3" data-speed="0.7" aria-hidden="true"></div>
+  <div class="wrap layer">
+    <h2 id="fi-title" data-reveal>Plug in.<br><span class="grad-text">Paste a link.</span><br>Ship.</h2>
+    <p class="lead" data-reveal>Free for Windows 10 and 11. Set up in minutes.</p>
+    <a class="btn btn-primary btn-lg" href="/download" data-magnetic data-track="cta" data-track-value="final_download" data-reveal>Download {{ site.site_name }}</a>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ asset('js/scene3d.js') }}"></script>{% endblock %}

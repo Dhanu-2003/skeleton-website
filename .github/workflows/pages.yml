@@ -1,0 +1,51 @@
+# Publishes the website on GitHub Pages: the app's tests run, the static site is written (freeze.py) and deployed.
+# Runs on every push to main, on every published release (the download page shows the new version), and by hand.
+name: Publish the website
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install "flask>=3.0"
+      - name: Test the site
+        run: python tests/test_site.py
+      - name: Write the static site
+        env:
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+        run: python freeze.py --site-url "https://${OWNER,,}.github.io/${REPO}" --repo "${GITHUB_REPOSITORY}"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

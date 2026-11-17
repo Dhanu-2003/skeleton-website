@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block robots %}noindex, nofollow{% endblock %}
+{% block main %}
+<section class="dash">
+  <div class="wrap">
+    <span class="eyebrow">Your account</span>
+    <h1 class="h2">{% if welcome %}Welcome, {{ user.name }}.{% else %}Hello, {{ user.name }}.{% endif %}</h1>
+    {% if ok %}<div class="alert ok" role="status">{{ ok }}</div>{% endif %}
+    {% if err %}<div class="alert err" role="alert">{{ err }}</div>{% endif %}
+    <div class="cols">
+      <div class="card">
+        <h3>Download</h3>
+        {% if rel %}<p class="muted">Version {{ rel.version }} · {{ rel.size_mb }} MB</p>
+        <a class="btn btn-primary" href="{{ rel.url }}" data-download data-file="{{ rel.file }}" data-track="cta" data-track-value="account_download" rel="nofollow">Download {{ site.site_name }}</a>
+        {% else %}<p class="muted">The installer is not published yet.</p>{% endif %}
+        <h3 class="small">Your downloads</h3>
+        {% if mine %}<table class="table"><tr><th>Version</th><th>When (UTC)</th></tr>
+          {% for d in mine %}<tr><td>{{ d.version }}</td><td>{{ d.ts|int|datetime }}</td></tr>{% endfor %}</table>
+        {% else %}<p class="muted small">None yet while signed in.</p>{% endif %}
+      </div>
+      <div class="card">
+        <h3>Profile</h3>
+        <p class="muted">{{ user.name }} · {{ user.email }}</p>
+        <form method="post" action="/logout"><input type="hidden" name="csrf" value="{{ csrf_token }}"><button class="btn btn-ghost" type="submit">Sign out</button></form>
+        <h3 class="small">Change the password</h3>
+        <form method="post" action="/account/password" novalidate>
+          <input type="hidden" name="csrf" value="{{ csrf_token }}">
+          <div class="field"><input id="a-old" name="old" type="password" placeholder=" " required autocomplete="current-password"><label for="a-old">Current password</label></div>
+          <div class="field"><input id="a-new" name="new" type="password" placeholder=" " required autocomplete="new-password" data-meter="a-meter"><label for="a-new">New password (10+ characters)</label></div>
+          <div class="meter" id="a-meter" aria-hidden="true"><i></i></div>
+          <button class="btn btn-primary" type="submit">Change it</button>
+        </form>
+        <h3 class="small">Delete the account</h3>
+        <button class="btn btn-danger" type="button" data-modal-open="modal-delete">Delete my account</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal danger" id="modal-delete" role="dialog" aria-modal="true" aria-labelledby="del-title" hidden>
+  <div class="backdrop" data-close></div>
+  <div class="panel">
+    <button class="x" type="button" data-close aria-label="Close">✕</button>
+    <div class="badge"><svg viewBox="0 0 40 40"><path d="M13 13l14 14M27 13L13 27"/></svg></div>
+    <h3 id="del-title">Delete your account?</h3>
+    <p>Your name, email and password are removed for good. Downloads stay in the counts, without your name.</p>
+    <form method="post" action="/account/delete">
+      <input type="hidden" name="csrf" value="{{ csrf_token }}">
+      <div class="field"><input id="d-pw" name="password" type="password" placeholder=" " required autocomplete="current-password"><label for="d-pw">Your password</label></div>
+      <div class="acts"><button class="btn btn-ghost" type="button" data-close>Keep it</button><button class="btn btn-danger" type="submit">Delete for good</button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="page-head">
+  <div class="wrap layer">
+    <span class="eyebrow">Contact</span>
+    <h1>Talk to <span class="grad-text">us.</span></h1>
+    <p class="lead">A question, a board that will not cooperate, an idea. We read every message.</p>
+  </div>
+</section>
+<section class="pad">
+  <div class="wrap">
+    {% if site.static %}
+    <div class="cols">
+      {% if site.github_repo %}<div class="card"><h3>Questions and problems</h3><p class="muted">Open an issue on GitHub: we read every one, and the answer helps the next person too.</p>
+        <a class="btn btn-primary" href="https://github.com/{{ site.github_repo }}/issues" rel="noopener">Open an issue</a></div>{% endif %}
+      {% if site.contact_email %}<div class="card"><h3>Email</h3><p class="muted">For anything private.</p><a class="btn btn-ghost" href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></div>{% endif %}
+    </div>
+    {% else %}
+    <form class="form" method="post" action="/contact" novalidate>
+      {% if sent %}<div class="alert ok" role="status">Thank you. Your message is with us.</div>{% endif %}
+      {% if err %}<div class="alert err" role="alert">{{ err }}</div>{% endif %}
+      <input type="hidden" name="csrf" value="{{ csrf_token }}">
+      <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="field"><input id="c-name" name="name" maxlength="80" placeholder=" " value="{{ form.name or (user.name if user else '') }}" required autocomplete="name"><label for="c-name">Your name</label></div>
+      <div class="field"><input id="c-email" name="email" type="email" maxlength="254" placeholder=" " value="{{ form.email or (user.email if user else '') }}" required autocomplete="email"><label for="c-email">Email</label></div>
+      <div class="field"><textarea id="c-body" name="body" maxlength="4000" placeholder=" " required>{{ form.body or '' }}</textarea><label for="c-body">Your message</label></div>
+      <button class="btn btn-primary btn-lg" type="submit" data-magnetic>Send the message</button>
+      {% if site.contact_email %}<p class="form-foot">Or email <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>.</p>{% endif %}
+    </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

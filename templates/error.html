@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block robots %}noindex, follow{% endblock %}
+{% block main %}
+<section class="page-head final">
+  <div class="orb o2" aria-hidden="true"></div>
+  <div class="wrap layer">
+    <h1 class="grad-text">{{ code }}</h1>
+    <p class="lead">{{ words }}{% if detail %} {{ detail }}{% endif %}</p>
+    <a class="btn btn-primary btn-lg" href="/" data-magnetic>Back to the start</a>
+  </div>
+</section>
+{% endblock %}

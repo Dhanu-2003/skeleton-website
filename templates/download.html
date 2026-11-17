@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="page-head">
+  <div class="orb o1" data-speed="0.6" aria-hidden="true"></div>
+  <div class="wrap layer">
+    <span class="eyebrow">Download</span>
+    <h1>Get <span class="grad-text">{{ site.site_name }}</span><br>for Windows.</h1>
+    <p class="lead">Free. Windows 10 and 11, 64-bit. Installs in a minute; everything else (compilers, programmers, SDKs) is added when a board needs it.</p>
+  </div>
+</section>
+<section class="pad">
+  <div class="wrap">
+    {% if rel %}
+    <div class="dl-card tilt" data-tilt data-reveal>
+      <div class="l">
+        <span class="counter-live"><i></i><b data-downloads>{{ downloads }}</b>&nbsp;downloads</span>
+        <h2>Version {{ rel.version }}</h2>
+        <p class="muted">{% if rel.built %}Built {{ rel.built }} · {% endif %}{{ rel.size_mb }} MB · {{ rel.file }}</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="{{ rel.url }}" data-download data-file="{{ rel.file }}" data-magnetic data-track="cta" data-track-value="download_button" rel="nofollow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+            Download {{ rel.size_mb }} MB</a>
+        </div>
+        {% if rel.notes %}<h3 class="small muted">What is new</h3><p class="muted small">{{ rel.notes }}</p>{% endif %}
+      </div>
+      <div class="r">
+        <dl class="kv">
+          <dt>System</dt><dd>Windows 10 or 11, 64-bit</dd>
+          <dt>Space</dt><dd>{{ rel.size_mb }} MB, plus the tools your boards need</dd>
+          <dt>File</dt><dd class="mono small">{{ rel.file }}</dd>
+          {% if rel.sha256 %}<dt>SHA-256</dt><dd><div class="hash"><code>{{ rel.sha256 }}</code><button class="btn btn-ghost btn-sm" type="button" data-copy="{{ rel.sha256 }}">Copy</button></div></dd>{% endif %}
+        </dl>
+        <h3 class="small">Check the file</h3>
+        <p class="muted small">In PowerShell, in your Downloads folder:</p>
+        <div class="term small">Get-FileHash .\{{ rel.file }} -Algorithm SHA256</div>
+        <p class="muted small">The hash it prints must be the one above.</p>
+      </div>
+    </div>
+    {% else %}
+    <div class="card"><h2>Coming soon</h2><p class="muted">The installer is not published yet. Check back soon, or write to us and we will tell you when it is ready.</p><a class="btn btn-primary" href="/contact">Contact us</a></div>
+    {% endif %}
+    <div class="cols3 pad">
+      <div class="pillar" data-reveal><h3>1. Install</h3><p>Run the installer. Windows may say "unknown publisher": More info, then Run anyway.</p></div>
+      <div class="pillar" data-reveal><h3>2. Choose a model</h3><p>Pick the AI model you want, by its API key or its command line.</p></div>
+      <div class="pillar" data-reveal><h3>3. Paste a link</h3><p>Turn on Hardware, paste your code base and plug in the board.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
