@@ -1,9 +1,9 @@
 {
  "version": "3.2.1",
  "file": "NovaSetup-3.2.1.exe",
- "size": 87515344,
- "sha256": "e0e1edcab89e8ffdf01a2023be7a87489e0b1c2d620d289ee7862fdc7287b81a",
- "notes": "Set-up: the bot is the one place to talk; another branch or Recheck reads the code base again; tools are found anywhere on the laptop and every click shows at once (a tick changes the list instantly, no reload); copies of a tool in a drop-down with Use; Discovery (the USB scan) is the last part of the Setup page and asks for a missing probe tool by itself; Pack makes a release zip (images, a README to flash them and see the output, checksums) with a Download button in the chat; when the board stays dark after a flash while its IDE works, Nova matches the IDE's build and flash and tries again; new popups.",
+ "size": 87518399,
+ "sha256": "e96feb038b0d2a9ddf9995501bb4a98c9a7c707ce8c7fba1386d51c1c0c284bb",
+ "notes": "The build is the vendor's build: Final setup builds exactly what the vendor's IDE project builds (every source, linked folders too, the include folders in order, defines, linker script, libraries), checked by Nova against the project itself; a path the project names is restored from the vendor's repository or reported as the vendor's own leftover, never silently skipped. Discovery is the last part of the Setup page; Pack makes a release zip with a Download button in the chat; tool ticks are instant; the bot is the one place to talk; when the board stays dark after a flash, Nova matches the IDE's build and flash and tries again.",
  "built": "2026-11-17",
- "download_url": "https://github.com/Dhanu-2003/nova-website/releases/download/v3.2.1/NovaSetup-3.2.1.exe"
+ "download_url": "https://github.com/Dhanu-2003/skeleton-website/releases/download/v3.2.1/NovaSetup-3.2.1.exe"
 }
